@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-sm-6 ml-sm-auto mr-sm-auto">
+      <div class="card">
+        <img class="card-img-top" src="https://placeimg.com/640/150/any" alt="Card image cap">
+        <div class="card-body">
+          {% if err_message %}
+            <div class="alert alert-danger">
+              {{ err_message }}
+            </div>
+            {{ request.user }}
+          {% endif %}
+          <form action="" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+              <button class="btn btn-primary btn-block">iniciar sesión</button>
+            {% endbuttons %}
+          </form>
+        </div>
+        <div class="card-footer text-center">
+          <a href="{% url 'account:register' %}">Crear una cuenta</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

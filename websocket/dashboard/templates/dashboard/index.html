@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img class="card-img-top" src="https://placeimg.com/640/310/any" alt="Card image cap">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><span class=""></span>@{{ request.user.username }}</li>
+          <li class="list-group-item">
+            {% if request.user.first_name %}
+              {{ request.user.first_name }} {{ request.user.last_name }}
+            {% else %}
+              <span class="text-info">Debe actualizar la información de su perfil </span>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="card">
+        <div class="card-body">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi consequatur cumque dicta doloribus facere in ipsam, itaque iusto laborum minima minus molestias quia quisquam sequi soluta, tenetur voluptates voluptatibus!
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
