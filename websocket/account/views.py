@@ -17,6 +17,8 @@ class UserCreateView(generic.CreateView):
     success_url = reverse_lazy('dashboard:register_user')
 
 
+
+
 class UserLoginView(UserPassesTestMixin, generic.View):
     login_url = '/'
     redirect_field_name = ''

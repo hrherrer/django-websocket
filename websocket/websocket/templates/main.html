@@ -1,9 +1,9 @@
 {# Load the tag library #}
 {% load bootstrap4 %}
+{% load static %}
 
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
-{% bootstrap_javascript %}
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
@@ -13,7 +13,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Websocket</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">Websocket</a>
@@ -31,16 +33,16 @@
       {% endblock %}
     </ul>
     <ul class="navbar-nav ml-auto">
-    {% if request.user.is_authenticated %}
+      {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a href="{% url 'account:logout' %}" class="nav-link">Cerrar Sesión</a>
         </li>
         <li class="nav-item">
           <a href="{% url 'account:profile' request.user.pk %}" class="nav-link">Perfil</a>
         </li>
-    {% else %}
-      <li><a href="{% url 'account:login' %}" role="button">Iniciar Sesión</a></li>
-    {% endif %}
+      {% else %}
+        <li><a href="{% url 'account:login' %}" role="button">Iniciar Sesión</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>
@@ -48,5 +50,10 @@
 <div class="container">
   {% block body %}{% endblock %}
 </div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap-notify-master/bootstrap-notify.js' %}"></script>
+{% bootstrap_javascript %}
+{% block script %}{% endblock %}
 </body>
 </html>

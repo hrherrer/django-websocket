@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-6 ml-md-auto mr-md-auto col-xs-12">
+      <div class="qr-wrapper alone">
+        <img src="{{ qrcode.qr_code.url }}" alt="Card image cap">
+      </div>
+    </div>
+  </div>
+  <div class="blur-bg-wrapper">
+    <div class="blur-bg" style="background: url('https://placeimg.com/2500/1200/nature');"></div>
+  </div>
+{% endblock %}

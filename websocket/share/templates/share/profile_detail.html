@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-6 ml-md-auto mr-md-auto col-xs-12">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="text-center">
+            <img src="https://placeimg.com/150/150/people" alt="Foto de perfil" class="rounded-circle">
+          </div>
+          <h4 class="card-title">{{ user.first_name }} {{ user.last_name }} <br>
+            <small class="text-muted">@{{ user.username }}</small>
+          </h4>
+          <p class="card-text"><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores cum debitis,
+            incidunt omnis provident sequi temporibus totam voluptatem. Debitis, earum exercitationem facilis mollitia
+            nam neque numquam odio quo repellendus soluta?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="blur-bg-wrapper">
+    <div class="blur-bg" style="background: url('https://placeimg.com/2500/1200/nature');"></div>
+  </div>
+{% endblock %}

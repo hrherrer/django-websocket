@@ -14,10 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.contrib import admin
+
+from websocket import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('dashboard.urls', namespace ="dashboard")),
-    url(r'^account/', include('account.urls', namespace="account"))
-]
+    url(r'^account/', include('account.urls', namespace="account")),
+    url(r'^share/', include('share.urls', namespace="share")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

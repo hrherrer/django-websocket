@@ -1,5 +1,5 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {# Load the tag library #}
 {% load bootstrap4 %}
 
@@ -24,15 +24,74 @@
               <span class="text-info">Debe actualizar la información de su perfil </span>
             {% endif %}
           </li>
+          {% if request.user.qrcode_set.all.first.qr_code.url %}
+            <li class="list-group-item">
+              <div class="qr-wrapper">
+                <img src="{{ request.user.qrcode_set.all.first.qr_code.url }}">
+                <div class="btn-wrapper">
+                  <a href="#" class="btn btn-warning"
+                     data-clipboard-text="{{ HOST }}{{ request.user.qrcode_set.all.first.get_absolute_url }}">Copiar
+                    enlace
+                  </a>
+                </div>
+              </div>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </div>
     <div class="col-sm-8">
+      <h4>Visitas al perfil</h4>
       <div class="card">
-        <div class="card-body">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi consequatur cumque dicta doloribus facere in ipsam, itaque iusto laborum minima minus molestias quia quisquam sequi soluta, tenetur voluptates voluptatibus!
-        </div>
+        <table class="table table-responsive">
+          <thead>
+          <tr class="table-secondary">
+            <th>IP</th>
+            <th>Navegador</th>
+            <th>Fecha</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% with request.user.qrcode_set.all.first as qrcode %}
+            {% if not qrcode.scan_set.all %}
+              <tr>
+                <td colspan="3" class="text-center text-muted">No hay visitas</td>
+              </tr>
+            {% else %}
+              {% for scan in qrcode.scan_set.all %}
+                <tr>
+                  <td>{{ scan.ip }}</td>
+                  <td>{{ scan.browser }}</td>
+                  <td>{{ scan.create_date }}</td>
+                </tr>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+
+{% endblock %}
+{% block script %}
+  <script src="{% static 'js/clipboard.min.js' %}"></script>
+  <script>
+      var clipboard = new Clipboard('*[data-clipboard-text]');
+      clipboard.on('success', function (e) {
+          $.notify({
+              // options
+              icon: 'glyphicon glyphicon-ok-circle',
+              message: 'Copiado en el portapapeles'
+          }, {
+              // settings
+              type: "warning"
+          });
+          e.clearSelection();
+      });
+  </script>
+
+  <script src="{% static 'js/reconnecting-websocket.min.js' %}"></script>
+  <script src="{% static 'js/update.js' %}"></script>
+
 {% endblock %}
