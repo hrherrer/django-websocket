@@ -50,7 +50,14 @@ class Scan(models.Model):
     qr_code = models.ForeignKey('QRCode', verbose_name=u'Código QR')
     ip = models.CharField(max_length=30, verbose_name=u'Dirección Ip')
     browser = models.CharField(max_length=50, verbose_name=u'Navegador')
+    os = models.CharField(max_length=50, verbose_name=u'Sistema Operativo')
     create_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-create_date']
+
+    def get_create_date_as_string(self):
+        return self.create_date.strftime("%b. %-d, %Y, %-H:%M %p.")
 
 
 @receiver(post_save, sender=QRCode)

@@ -25,9 +25,9 @@ SECRET_KEY = '+_(v_u@eb+ql1!74_9pg45t9!(u)jl*g$s&o8xhm7z1!+u^g$c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-HOST = 'http://localhost:8000'
+HOST = 'http://192.168.50.4:8001'
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'account',
     'share',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,15 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# Layer Settings
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
+        "ROUTING": "dashboard.routing.channel_routing",
+    },
+}

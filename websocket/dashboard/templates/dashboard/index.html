@@ -48,13 +48,14 @@
           <tr class="table-secondary">
             <th>IP</th>
             <th>Navegador</th>
+            <th>SO</th>
             <th>Fecha</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody id="visits">
           {% with request.user.qrcode_set.all.first as qrcode %}
             {% if not qrcode.scan_set.all %}
-              <tr>
+              <tr id="placeholder">
                 <td colspan="3" class="text-center text-muted">No hay visitas</td>
               </tr>
             {% else %}
@@ -62,7 +63,8 @@
                 <tr>
                   <td>{{ scan.ip }}</td>
                   <td>{{ scan.browser }}</td>
-                  <td>{{ scan.create_date }}</td>
+                  <td>{{ scan.os }}</td>
+                  <td>{{ scan.get_create_date_as_string }}</td>
                 </tr>
               {% endfor %}
             {% endif %}
