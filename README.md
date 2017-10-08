@@ -1,6 +1,6 @@
-# Testing Django Channels
+# Testing Django Channels
 
-#### Redis
+## Redis
 
 On macOS, run the following command to install Redis:
 
