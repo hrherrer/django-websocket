@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django.views import generic
+from channels import Group
 from account.models import QRCode, Scan
 from .services import get_client_ip
-from channels import Group
+
 import json
 import user_agents
 
