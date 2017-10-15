@@ -20,6 +20,7 @@ class UserProfileView(generic.DetailView):
     template_name = 'share/profile_detail.html'
 
     def get(self, request, *args, **kwargs):
+        print(request.META['HTTP_USER_AGENT'])
         ua = user_agents.parse(request.META['HTTP_USER_AGENT'])
         qr = self.get_object().qrcode_set.all().first()
         scan = Scan.objects.create(
